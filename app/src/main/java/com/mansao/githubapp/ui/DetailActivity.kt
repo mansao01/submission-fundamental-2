@@ -29,6 +29,14 @@ class DetailActivity : AppCompatActivity() {
         val receiveUsernameIntent = intent.getStringExtra(EXTRA_DATA)
         val bundle = Bundle()
         bundle.putString(EXTRA_DATA, receiveUsernameIntent)
+        val sectionPagerAdapter = SectionPagerAdapter(this, bundle)
+        binding.viewPager.adapter = sectionPagerAdapter
+        TabLayoutMediator(
+            binding.tabs, binding.viewPager
+        ) { tab: TabLayout.Tab, position: Int ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+
         receiveUsernameIntent?.let { detailViewModel.getDetailUser(it) }
 
         detailViewModel.apply {
@@ -56,13 +64,7 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
-        val sectionPagerAdapter = SectionPagerAdapter(this)
-        binding.viewPager.adapter = sectionPagerAdapter
-        TabLayoutMediator(
-            binding.tabs, binding.viewPager
-        ) { tab: TabLayout.Tab, position: Int ->
-            tab.text = resources.getString(TAB_TITLES[position])
-        }.attach()
+
     }
 
     private fun showProgressBar(state: Boolean) {
@@ -89,6 +91,6 @@ class DetailActivity : AppCompatActivity() {
         const val EXTRA_DATA = "extra_data"
 
         @StringRes
-        private val TAB_TITLES = intArrayOf(R.string.following, R.string.followers)
+        private val TAB_TITLES = intArrayOf(R.string.followers, R.string.following)
     }
 }
