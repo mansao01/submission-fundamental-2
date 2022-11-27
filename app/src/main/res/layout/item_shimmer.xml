@@ -36,7 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_photo"
             android:background="@color/background"
-            android:textColor="#00000000"
+            android:textColor="@color/ultra_zero"
             app:layout_constraintTop_toTopOf="@+id/img_photo"
             app:layout_constraintVertical_bias="0.15"
             tools:text="UserName" />

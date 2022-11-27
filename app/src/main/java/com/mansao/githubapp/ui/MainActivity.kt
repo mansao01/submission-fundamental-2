@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         showListUser()
 
     }
-    private fun showListUser() {
 
+    private fun showListUser() {
         mainViewModel.getAllUser()
         mainViewModel.listUserGitHub.observe(this) {
             adapter.setListUser(it)
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             showToast(it)
         }
     }
+
     private fun searchUser() {
         val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
         binding.apply {
@@ -53,15 +54,17 @@ class MainActivity : AppCompatActivity() {
             searchView.queryHint = getString(R.string.Search_user)
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    query?.let { mainViewModel.searchUser(it) }
-                    mainViewModel.searchUserGitHub.observe(this@MainActivity) {
-                        adapter.setListUser(it)
-                    }
-                    mainViewModel.isLoading.observe(this@MainActivity) {
-                        showProgressBar(it)
-                    }
-                    mainViewModel.showToast.observe(this@MainActivity) {
-                        showToast(it)
+                    mainViewModel.apply {
+                        query?.let { searchUser(it) }
+                        searchUserGitHub.observe(this@MainActivity) {
+                            adapter.setListUser(it)
+                        }
+                        isLoading.observe(this@MainActivity) {
+                            showProgressBar(it)
+                        }
+                        showToast.observe(this@MainActivity) {
+                            showToast(it)
+                        }
                     }
                     return false
                 }

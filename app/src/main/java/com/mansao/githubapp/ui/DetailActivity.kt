@@ -50,6 +50,8 @@ class DetailActivity : AppCompatActivity() {
                     tvFollower.text = it.followers.toString()
                     tvRepository.text = it.publicRepos.toString()
 
+                    supportActionBar?.title = it.name
+
                     Glide.with(this@DetailActivity)
                         .load(it.avatarUrl)
                         .centerCrop()
